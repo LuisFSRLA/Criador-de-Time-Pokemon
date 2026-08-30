@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criador de time</title>
+    <link rel="icon" type="image/png" href="./img/pokebola.png"">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="min-h-screen bg-neutral-600 flex items-center justify-center">
+    <main class="min-w-80 bg-neutral-200 p-6 rounded-xl shadow-xl mt-4 mb-4">
+        <h1 class="text-lg font-bold text-neutral-800 mb-4 text-center" onclick="AcionarBotao()">Criador de Time</h1>
+        <button id="btn" class="w-full bg-blue-600 hover:bg-blue-700 hover:outline-2 hover:outline-offset-2 hover:outline-blue-700 active:bg-green-700 active:outline-2 active:outline-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">Criar Time</button>
+        <div id="container" class="mt-4 space-y-2 grid grid-cols-3 gap-4"></div>
+    </main>
+    <script type="module" src="js/dicionarios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="js/efeitos.js"></script>
+    <script type="module" src="js/script.js"></script>
+</body>
+</html>
