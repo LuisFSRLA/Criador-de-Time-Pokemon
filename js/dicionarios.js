@@ -41,24 +41,6 @@ const coresPorTipo = {
     fairy: "pink-300",
 };
 
-const lendarios = [
-    44, 145, 146, 150, 243, 244, 245, 249, 250,
-    377, 378, 379, 380, 381, 382, 383, 384,
-    480, 481, 482, 483, 484, 485, 486, 487, 488,
-    638, 639, 640, 641, 642, 643, 644, 645, 646,
-    716, 717, 718,
-    785, 786, 787, 788, 789, 790, 791, 792, 800,
-    888, 889, 890, 891, 892, 894, 895, 896, 897, 898,
-    905,
-    1001, 1002, 1003, 1004, 1007, 1008, 1009, 1010, 1014, 1015, 1016, 1017, 1024
-];
-
-const miticos = [
-    151, 251, 385, 386, 489, 490, 491, 492, 493, 494,
-    647, 648, 649, 719, 720, 721, 801, 802, 807, 808, 809,
-    893, 1025
-];
-
 const ultraBeasts = [
   793, 794, 795, 796, 797, 798, 799, 805, 806
 ];
@@ -100,32 +82,38 @@ function escolherCorPorTipo(tipo) {
     return coresPorTipo[tipo] || "neutral-400";
 }
 
-function VerificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
-    if (miticos.includes(pokemonId)) {
-        if (ehShiny) {
-            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-purple-800", "max-w-90");
-        } else {
-            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-red-700", "max-w-90");
+async function VerificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`);
+        const pokemonSpecies = await response.json();
+        
+        // Determina raridade baseado em dados da API
+        const isLegendary = pokemonSpecies.is_legendary;
+        const isMythical = pokemonSpecies.is_mythical;
+        
+        // Determina cor baseado na raridade
+        let classesCor = ["p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "max-w-90"];
+        
+        if (isMythical) {
+            classesCor.push(ehShiny ? "bg-purple-800" : "bg-red-700");
         }
-    }
-    else if (lendarios.includes(pokemonId)) {
-        if (ehShiny) {
-            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-green-600", "max-w-90");
-        } else {
-            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-amber-400", "max-w-90");
+        else if (isLegendary) {
+            classesCor.push(ehShiny ? "bg-green-600" : "bg-amber-400");
         }
-    }
-    else if (ultraBeasts.includes(pokemonId)) {
-        if (ehShiny) {
-            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-indigo-700", "max-w-90");
-        } else {
-            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-purple-400", "max-w-90");
+        else if (ultraBeasts.includes(pokemonId)) {
+            classesCor.push(ehShiny ? "bg-indigo-700" : "bg-purple-400");
         }
-    }
-    else if (ehShiny) {
-        elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-blue-400", "max-w-90");
-    }
-    else {
+        else if (ehShiny) {
+            classesCor.push("bg-blue-400");
+        }
+        else {
+            classesCor.push("bg-white");
+        }
+        
+        elementoCard.classList.add(...classesCor);
+    } catch (error) {
+        console.error("Erro ao verificar raridade:", error);
+        // Fallback para branco se houver erro
         elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-white", "max-w-90");
     }
 }

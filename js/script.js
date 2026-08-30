@@ -38,13 +38,13 @@ button.addEventListener("click", () => {
     // Sorteia um ID de Pokémon (1 a 1025)
     const idAleatorio = Math.floor(Math.random() * 1025) + 1;
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
+        fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
       .then((response) => response.json())
       .then((pokemon) => {
         //chama a api pokemon-species que dao mais descrição sobre a especie
         fetch(`https://pokeapi.co/api/v2/pokemon-species/${idAleatorio}`)
           .then((response) => response.json())
-          .then((pokemonSpecies) => {
+          .then(async (pokemonSpecies) => {
             const entradaDescricao =
               pokemonSpecies.flavor_text_entries.find(e => e.language.name === 'pt') ||
               pokemonSpecies.flavor_text_entries.find(e => e.language.name === 'en');
@@ -118,7 +118,7 @@ button.addEventListener("click", () => {
         }
 
         // PERSONALIZAÇÃO DO HTML
-        VerificarRaridadeCard(card, idAleatorio, Shiny);
+        await VerificarRaridadeCard(card, idAleatorio, Shiny);
         
         // Imagem do Pokémon
         imagem.src = imagemPokemon;
