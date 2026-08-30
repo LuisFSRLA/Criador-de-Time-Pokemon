@@ -123,7 +123,7 @@ button.addEventListener("click", () => {
         // Imagem do Pokémon
         imagem.src = imagemPokemon;
         imagem.alt = nomePokemon;
-        imagem.classList.add("w-30", "h-30", "rounded-md");
+        imagem.classList.add("w-40", "h-40", "rounded-md");
 
         // Nome do Pokémon
         nome.textContent = nomePokemon;

@@ -102,34 +102,31 @@ function escolherCorPorTipo(tipo) {
 
 function VerificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
     if (miticos.includes(pokemonId)) {
-        elementoCard.classList.add("p-3", "rounded-lg", "shadow", "flex", "justify-center", "items-center", "flex-col", "gap-2", "border-2", "shadow-sm", "shadow-neutral-300", "bg-red-700" , "max-w-90");
         if (ehShiny) {
-            elementoCard.classList.add("border-blue-600");
+            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-purple-800", "max-w-90");
         } else {
-            elementoCard.classList.add("border-red-900");
+            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-red-700", "max-w-90");
         }
     }
     else if (lendarios.includes(pokemonId)) {
-        elementoCard.classList.add("p-3", "rounded-lg", "shadow", "flex", "justify-center", "items-center", "flex-col", "gap-2", "border-2", "shadow-sm", "shadow-neutral-300", "bg-amber-400", "max-w-90");
         if (ehShiny) {
-            elementoCard.classList.add("border-blue-600");
+            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-green-600", "max-w-90");
         } else {
-            elementoCard.classList.add("border-amber-200");
+            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-amber-400", "max-w-90");
         }
     }
     else if (ultraBeasts.includes(pokemonId)) {
-        elementoCard.classList.add("p-3", "rounded-lg", "shadow", "flex", "justify-center", "items-center", "flex-col", "gap-2", "border-2", "shadow-sm", "shadow-neutral-300", "bg-purple-400", "max-w-90");
         if (ehShiny) {
-            elementoCard.classList.add("border-blue-600");
+            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-indigo-700", "max-w-90");
         } else {
-            elementoCard.classList.add("border-purple-600");
+            elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-purple-400", "max-w-90");
         }
     }
     else if (ehShiny) {
-        elementoCard.classList.add("p-3", "rounded-lg", "shadow", "flex", "justify-center", "items-center", "flex-col", "gap-2", "border-2", "shadow-sm", "shadow-neutral-300", "bg-blue-400", "border-blue-600", "max-w-90");
+        elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-blue-400", "max-w-90");
     }
     else {
-        elementoCard.classList.add("p-3", "rounded-lg", "shadow", "flex", "justify-center", "items-center", "flex-col", "gap-2", "border-2", "shadow-sm", "shadow-neutral-300", "bg-white", "border-neutral-300", "max-w-90");
+        elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-white", "max-w-90");
     }
 }
 
