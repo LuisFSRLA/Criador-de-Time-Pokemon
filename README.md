@@ -27,4 +27,4 @@ Um gerador simples de time Pokémon, todo em Português Brasileiro. O projeto so
 
 Easter egg
 
-Quando o Pokémon sorteado é o Giratina (normal, shiny ou origin), um alerta especial é exibido usando SweetAlert2.
+Quando o Pokémon sorteado é o Giratina (normal, shiny) Ou um Pokémon Shiny, um alerta especial é exibido usando SweetAlert2.
