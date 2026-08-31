@@ -27,6 +27,7 @@ import {
 
 button.addEventListener("click", () => {
   const AudioButtonAleatorio= Math.floor(Math.random()* 2) + 1;
+  let TemShiny=0;
   if (AudioButtonAleatorio==1){
     audioPkmLevelUp.play();
   }
@@ -38,7 +39,7 @@ button.addEventListener("click", () => {
     // Sorteia um ID de Pokémon (1 a 1025)
     const idAleatorio = Math.floor(Math.random() * 1025) + 1;
 
-        fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
+      fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
       .then((response) => response.json())
       .then((pokemon) => {
         //chama a api pokemon-species que dao mais descrição sobre a especie
@@ -216,10 +217,9 @@ button.addEventListener("click", () => {
         botaoShowdown.textContent = "Pokemon Showdown";
         botaoShowdown.classList.add(...classeBttn, "bg-blue-600", "hover:bg-blue-700");
 
-
         //colocar pokemon no pokemonscapturados
         pokemonsCapturados.push({ id: idAleatorio, shiny: Shiny === 1 });
-        
+
         // AJUSTE DE CORES CONFORME RARIDADE/FUNDO DO CARD
         VerificarCorDoNome(nome, idAleatorio, Shiny);
         VerificarCorDoTexto(numeroDex, idAleatorio, Shiny);
@@ -254,7 +254,8 @@ button.addEventListener("click", () => {
           botaoBulbapedia,
           botaoShowdown
         );
-        container.appendChild(card)
+        
+        container.appendChild(card);
         Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container)
       })
       .catch((error) => {
@@ -263,7 +264,9 @@ button.addEventListener("click", () => {
       
       })
       
-    }
+  }
+  
+    
     // Desabilita o botão
     button.disabled = true;
     button.textContent = "Aguarde..."; // Opcional: feedback visual

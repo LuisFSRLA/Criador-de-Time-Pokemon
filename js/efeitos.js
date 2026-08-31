@@ -14,9 +14,11 @@ export {
 
 //funções
 function Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container) {
+    
     const capturouGiratina = pokemonsCapturados.some(p => p.id === 487);
+    const TiposDosPokemons = pokemonsCapturados.map(p => p.tipos).flat();
 
-    if (capturouGiratina && Shiny == 1) {
+    if (capturouGiratina && Shiny === 1) {
         Swal.fire({
             title: 'Holy Moly',
             text: "Você Capturou Giratina Shiny",
@@ -28,19 +30,19 @@ function Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container) {
         });
         audioOhmyGod.play();
     }
-    else if ( Shiny == 1){
-        if (jaMostrouAlertaShiny!=true){
-        audioShinyAleatorio==1
-        ? audioShinyPokemonAntigo.play()
-        : audioShinyPokemonNovo.play();
-        jaMostrouAlertaShiny = true;
-        Swal.fire({
-            title: 'Um SHINY apareceu',
-            imageUrl: "img/youShine.jpeg",
-            imageWidth: 400,
-            imageHeight: 400,
-            imageAlt: "Gem Alert",
-            backdrop: `rgba(0,0,123,0.4) left top no-repeat`
+    else if ( Shiny === 1){
+        if (jaMostrouAlertaShiny != true){
+            (audioShinyAleatorio === 1)
+            ? audioShinyPokemonAntigo.play()
+            : audioShinyPokemonNovo.play();
+            jaMostrouAlertaShiny = true;
+            Swal.fire({
+                title: 'Um SHINY apareceu',
+                imageUrl: "img/youShine.jpeg",
+                imageWidth: 400,
+                imageHeight: 400,
+                imageAlt: "Gem Alert",
+                backdrop: `rgba(0,0,123,0.4) left top no-repeat`
             });
         }
     }

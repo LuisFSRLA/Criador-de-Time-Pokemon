@@ -119,25 +119,42 @@ async function VerificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
 }
 
 function VerificarCorDoTexto(elementoTexto, pokemonId, ehShiny) {
-    const ehEspecial = miticos.includes(pokemonId) || lendarios.includes(pokemonId) || ultraBeasts.includes(pokemonId);
-
-    if (ehEspecial || ehShiny) {
-        elementoTexto.classList.add("text-neutral-200/80");
-    }
-    else {
-        elementoTexto.classList.add("text-neutral-700");
-    }
+    const response = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
+        .then(response => response.json())
+        .then(pokemonSpecies => {
+            const isLegendary = pokemonSpecies.is_legendary;
+            const isMythical = pokemonSpecies.is_mythical;
+            const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId);
+    
+            if (ehEspecial || ehShiny) {
+                elementoTexto.classList.add("text-neutral-200/80");
+            }
+            else {
+                elementoTexto.classList.add("text-neutral-700");
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao verificar cor do texto:", error);
+            // Fallback para cor padrão se houver erro
+            elementoTexto.classList.add("text-neutral-700");
+        });
 }
 
 function VerificarCorDoNome(elementoNome, pokemonId, ehShiny) {
-    const ehEspecial = miticos.includes(pokemonId) || lendarios.includes(pokemonId) || ultraBeasts.includes(pokemonId);
+    const response = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
+        .then(response => response.json())
+        .then((pokemonSpecies) => {
+            const isLegendary = pokemonSpecies.is_legendary;
+            const isMythical = pokemonSpecies.is_mythical;
+            const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId);
 
-    if (ehEspecial || ehShiny) {
-        elementoNome.classList.add("text-white/90");
-    }
-    else {
-        elementoNome.classList.add("text-mist-800");
-    }
+        if (ehEspecial || ehShiny) {
+            elementoNome.classList.add("text-white/90");
+        }
+        else {
+            elementoNome.classList.add("text-mist-800");
+        }
+        })
 }
 
 // FUNÇÕES DE CONTEÚDO / TEXTO DO CARD
