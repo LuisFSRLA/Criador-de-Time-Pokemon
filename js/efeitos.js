@@ -1,24 +1,22 @@
 export {
-    Eventos,
+    eventos,
 }
-//variaveis
-        const audioOhmyGod = new Audio("audios/oh-my-god-meme.ogg");
-        audioOhmyGod.volume = 0.2;
-        const audioOhmyGodJojo = new Audio("audios/oh-my-god-jojo.ogg");
-        audioOhmyGodJojo.volume = 0.2;
-        const audioShinyPokemonAntigo = new Audio("audios/shiny-pokemon.ogg");
-        audioShinyPokemonAntigo.volume = 0.2;
-        const audioShinyPokemonNovo = new Audio("audios/shiny-pokemon-sound.ogg");
-        audioShinyPokemonNovo.volume = 0.2;
-        let jaMostrouAlertaShiny = false;
 
-//funções
-function Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container) {
-    
-    const capturouGiratina = pokemonsCapturados.some(p => p.id === 487);
-    const TiposDosPokemons = pokemonsCapturados.map(p => p.tipos).flat();
+const audioOhmyGod = new Audio("audios/oh-my-god-meme.ogg");
+audioOhmyGod.volume = 0.2;
+const audioOhmyGodJojo = new Audio("audios/oh-my-god-jojo.ogg");
+audioOhmyGodJojo.volume = 0.2;
+const audioShinyPokemonAntigo = new Audio("audios/shiny-pokemon.ogg");
+audioShinyPokemonAntigo.volume = 0.2;
+const audioShinyPokemonNovo = new Audio("audios/shiny-pokemon-sound.ogg");
+audioShinyPokemonNovo.volume = 0.2;
+let jaMostrouAlertaShiny = false;
 
-    if (capturouGiratina && Shiny === 1) {
+function eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container) {
+    const capturouGiratina = pokemonsCapturados.some((p) => p.id === 487);
+    const tiposDosPokemons = pokemonsCapturados.map((p) => p.tipos).flat();
+
+    if (capturouGiratina && shiny === 1) {
         Swal.fire({
             title: 'Holy Moly',
             text: "Você Capturou Giratina Shiny",
@@ -30,8 +28,8 @@ function Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container) {
         });
         audioOhmyGod.play();
     }
-    else if ( Shiny === 1){
-        if (jaMostrouAlertaShiny != true){
+    else if (shiny === 1) {
+        if (jaMostrouAlertaShiny != true) {
             (audioShinyAleatorio === 1)
             ? audioShinyPokemonAntigo.play()
             : audioShinyPokemonNovo.play();
@@ -58,11 +56,12 @@ function Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container) {
             backdrop: `rgba(0,0,123,0.4) left top no-repeat`
         });
     }
+
     if (container.children.length > 6) {
         for (let i = 0; i < 6; i++) {
-           container.removeChild(container.firstChild);
-           pokemonsCapturados.shift();
+            container.removeChild(container.firstChild);
+            pokemonsCapturados.shift();
         }
-        jaMostrouAlertaShiny=false;
+        jaMostrouAlertaShiny = false;
     }
 }

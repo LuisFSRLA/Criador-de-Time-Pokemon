@@ -4,39 +4,38 @@ const container = document.querySelector("#container");
 
 import {
   escolherCorPorTipo,
-  classep,
-  VerificarRaridadeCard,
-  classeBttn,
-  VerificarCorDoTexto,
-  VerificarPeso,
+  classesParagrafo,
+  verificarRaridadeCard,
+  classesBotao,
+  verificarCorDoTexto,
+  verificarPeso,
   quebraLinha,
-  VerificarEstaticas,
-  VerificarCorDoNome,
-  classeBttnAudio,
+  verificarEstaticas,
+  verificarCorDoNome,
+  classesBotaoAudio,
   dexHyphenados,
   audioPkmLevelUp,
   audioPkmPlink,
   pokemonsCapturados,
-  classeBttnAtivado,
-  classeBttnDesativado
+  classesBotaoAtivado,
+  classesBotaoDesativado
 } from "./dicionarios.js";
 import { 
-  Eventos
+  eventos
 } from "./efeitos.js";
 
-
 button.addEventListener("click", () => {
-  const AudioButtonAleatorio= Math.floor(Math.random()* 2) + 1;
-  let TemShiny=0;
-  if (AudioButtonAleatorio==1){
+  const audioButtonAleatorio = Math.floor(Math.random() * 2) + 1;
+  let temShiny = 0;
+
+  if (audioButtonAleatorio == 1) {
     audioPkmLevelUp.play();
   }
-  else{
+  else {
     audioPkmPlink.play();
   }
   
   for (let i = 0; i < 6; i++) {
-    // Sorteia um ID de Pokémon (1 a 1025)
     const idAleatorio = Math.floor(Math.random() * 1025) + 1;
 
       fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
@@ -55,16 +54,15 @@ button.addEventListener("click", () => {
               : 'Descrição indisponível.';
 
         const audioShinyAleatorio = Math.floor(Math.random() * 2);
-          
-        // DADOS BRUTOS DO POKÉMON (vindos da API)
-        let nomePokemon = pokemon.name; //.replace(/-.*/, '');
+  
+        let nomePokemon = pokemon.name;
         if (!dexHyphenados.includes(idAleatorio)) {
             nomePokemon = nomePokemon.replace(/-.*/, '');
         }
-        let imagemPokemon = pokemon.sprites.other["home"].front_default || pokemon.sprites.front_default ; 
+        let imagemPokemon = pokemon.sprites.other["home"].front_default || pokemon.sprites.front_default;
         const alturaPokemon = pokemon.height / 10;
         const pesoPokemon = pokemon.weight / 10;
-        let Shiny = 0;
+        let shiny = 0;
         const idFormatado = String(idAleatorio).padStart(4, "0");
         const chanceCapturaPokemon = pokemonSpecies.capture_rate;
 
@@ -103,7 +101,7 @@ button.addEventListener("click", () => {
         const botaoPokedex = document.createElement("a");
         const botaoBulbapedia = document.createElement("a");
         const botaoShowdown = document.createElement("a");
-        const botaoAudio = document.createElement("button")
+        const botaoAudio = document.createElement("button");
 
         //Coloca os href antes da mudança do nome
         botaoPokedex.href = `https://www.pokemon.com/br/pokedex/${pokemon.name}`;        
@@ -111,15 +109,14 @@ button.addEventListener("click", () => {
         botaoShowdown.href = `https://dex.pokemonshowdown.com/pokemon/${pokemon.name}`;
 
         // PROBABILIDADE DE SHINY (1 em 4096, taxa clássica dos jogos)
-        const PorcentagemShiny = Math.floor(Math.random() * 4096) + 1; //;;
-        if (PorcentagemShiny == 1) {
-          imagemPokemon = pokemon.sprites.other["home"].front_shiny|| pokemon.sprites.front_shiny;
-          Shiny = 1;
-          nomePokemon=`${nomePokemon} Shiny`;
+        const porcentagemShiny = Math.floor(Math.random() * 4096) + 1;
+        if (porcentagemShiny == 1) {
+          imagemPokemon = pokemon.sprites.other["home"].front_shiny || pokemon.sprites.front_shiny;
+          shiny = 1;
+          nomePokemon = `${nomePokemon} Shiny`;
         }
 
-        // PERSONALIZAÇÃO DO HTML
-        await VerificarRaridadeCard(card, idAleatorio, Shiny);
+        await verificarRaridadeCard(card, idAleatorio, shiny);
         
         // Imagem do Pokémon
         imagem.src = imagemPokemon;
@@ -128,7 +125,7 @@ button.addEventListener("click", () => {
 
         // Nome do Pokémon
         nome.textContent = nomePokemon;
-        nome.classList.add(...classep,);
+        nome.classList.add(...classesParagrafo);
 
         // Tipagem (cria uma "pill" colorida para cada tipo)
         containerTipos.classList.add("flex", "gap-1", "flex-wrap", "justify-center");
@@ -143,7 +140,7 @@ button.addEventListener("click", () => {
 
         // Número da Pokédex
         numeroDex.textContent = `Dex: #${idFormatado}`;
-        numeroDex.classList.add(...classep);
+        numeroDex.classList.add(...classesParagrafo);
 
         // Habilidade
         containerHabilidades.classList.add("flex", "flex-col", "items-center", "gap-1");
@@ -154,51 +151,48 @@ button.addEventListener("click", () => {
           textoHabilidade.textContent = ehOculta
             ? `Habilidade Oculta: ${nomeDaHabilidade}`
             : `Habilidade: ${nomeDaHabilidade}`;
-          textoHabilidade.classList.add(...classep);
-          VerificarCorDoTexto(textoHabilidade, idAleatorio, Shiny);
+          textoHabilidade.classList.add(...classesParagrafo);
+          verificarCorDoTexto(textoHabilidade, idAleatorio, shiny);
           containerHabilidades.appendChild(textoHabilidade);
         });
 
         // Altura
         textoAltura.textContent = `Altura: ${alturaPokemon}m`;
-        textoAltura.classList.add(...classep);
+        textoAltura.classList.add(...classesParagrafo);
 
-        // Peso (formata o texto de acordo com faixas de peso)
-        VerificarPeso(pesoPokemon, textoPeso);
-        textoPeso.classList.add(...classep);
+        verificarPeso(pesoPokemon, textoPeso);
+        textoPeso.classList.add(...classesParagrafo);
 
-        // Descrição
-        descricaoText.textContent="Descrição:";
-        descricaoText.classList.add(...classep,"-mb-2");
-        descricao.textContent= descricaoPokemon;
-        descricao.classList.add(...classep, "text-xs");
+        descricaoText.textContent = "Descrição:";
+        descricaoText.classList.add(...classesParagrafo, "-mb-2");
+        descricao.textContent = descricaoPokemon;
+        descricao.classList.add(...classesParagrafo, "text-xs");
 
-        //chance de captura
-        chanceCaptura.textContent= `Chance de Captura: ${chanceCapturaPokemon}`;
-        chanceCaptura.classList.add(...classep);
+        chanceCaptura.textContent = `Chance de Captura: ${chanceCapturaPokemon}`;
+        chanceCaptura.classList.add(...classesParagrafo);
 
         // Estatísticas base (monta o texto "Nome: valor" + define cor conforme o valor)
         quebraLinha(vidaBasico, "HP", ps);
-        VerificarEstaticas(ps, vidaBasico);
+        verificarEstaticas(ps, vidaBasico);
 
         quebraLinha(ataqueBasico, "Atk", atk);
-        VerificarEstaticas(atk, ataqueBasico);
+        verificarEstaticas(atk, ataqueBasico);
 
         quebraLinha(defesaBasico, "Def", def);
-        VerificarEstaticas(def, defesaBasico);
+        verificarEstaticas(def, defesaBasico);
 
         quebraLinha(ataqueEspecial, "Sp.Atk", sp_atk);
-        VerificarEstaticas(sp_atk, ataqueEspecial);
+        verificarEstaticas(sp_atk, ataqueEspecial);
 
         quebraLinha(defesaEspecial, "Sp.Def", sp_def);
-        VerificarEstaticas(sp_def, defesaEspecial);
+        verificarEstaticas(sp_def, defesaEspecial);
 
         quebraLinha(velocidade, "Spe", speed);
-        VerificarEstaticas(speed, velocidade);
+        verificarEstaticas(speed, velocidade);
         
         // Botão: Audio
-        botaoAudio.textContent = "Tocar Audio"
-        botaoAudio.classList.add(...classeBttnAudio);
+        botaoAudio.textContent = "Tocar Audio";
+        botaoAudio.classList.add(...classesBotaoAudio);
         botaoAudio.addEventListener("click", () => {
           const audio = new Audio(pokemon.cries.latest);
           audio.volume = 0.3;
@@ -207,27 +201,24 @@ button.addEventListener("click", () => {
 
         // Botão: Pokédex oficial
         botaoPokedex.textContent = "Pokedex";
-        botaoPokedex.classList.add(...classeBttn, "bg-red-600", "hover:bg-red-700");
+        botaoPokedex.classList.add(...classesBotao, "bg-red-600", "hover:bg-red-700");
 
-        // Botão: Bulbapedia
         botaoBulbapedia.textContent = "Bulbapedia";
-        botaoBulbapedia.classList.add(...classeBttn, "bg-green-600", "hover:bg-green-700");
+        botaoBulbapedia.classList.add(...classesBotao, "bg-green-600", "hover:bg-green-700");
 
-        // Botão: Pokémon Showdown
         botaoShowdown.textContent = "Pokemon Showdown";
-        botaoShowdown.classList.add(...classeBttn, "bg-blue-600", "hover:bg-blue-700");
+        botaoShowdown.classList.add(...classesBotao, "bg-blue-600", "hover:bg-blue-700");
 
         //colocar pokemon no pokemonscapturados
-        pokemonsCapturados.push({ id: idAleatorio, shiny: Shiny === 1 });
+        pokemonsCapturados.push({ id: idAleatorio, shiny: shiny === 1 });
 
-        // AJUSTE DE CORES CONFORME RARIDADE/FUNDO DO CARD
-        VerificarCorDoNome(nome, idAleatorio, Shiny);
-        VerificarCorDoTexto(numeroDex, idAleatorio, Shiny);
-        VerificarCorDoTexto(textoAltura, idAleatorio, Shiny);
-        VerificarCorDoTexto(textoPeso, idAleatorio, Shiny);
-        VerificarCorDoTexto(descricao, idAleatorio, Shiny);
-        VerificarCorDoTexto(descricaoText, idAleatorio, Shiny);
-        VerificarCorDoTexto(chanceCaptura, idAleatorio, Shiny);
+        verificarCorDoNome(nome, idAleatorio, shiny);
+        verificarCorDoTexto(numeroDex, idAleatorio, shiny);
+        verificarCorDoTexto(textoAltura, idAleatorio, shiny);
+        verificarCorDoTexto(textoPeso, idAleatorio, shiny);
+        verificarCorDoTexto(descricao, idAleatorio, shiny);
+        verificarCorDoTexto(descricaoText, idAleatorio, shiny);
+        verificarCorDoTexto(chanceCaptura, idAleatorio, shiny);
         containerEstaticas.append(
           vidaBasico,
           ataqueBasico,
@@ -256,7 +247,7 @@ button.addEventListener("click", () => {
         );
         
         container.appendChild(card);
-        Eventos(pokemonsCapturados, Shiny, audioShinyAleatorio, container)
+        eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container)
       })
       .catch((error) => {
         console.error("Erro ao carregar pokemon:", error);
@@ -269,16 +260,15 @@ button.addEventListener("click", () => {
     
     // Desabilita o botão
     button.disabled = true;
-    button.textContent = "Aguarde..."; // Opcional: feedback visual
-    button.classList.remove(...classeBttnAtivado)
-    button.classList.add(...classeBttnDesativado)
+    button.textContent = "Aguarde...";
+    button.classList.remove(...classesBotaoAtivado);
+    button.classList.add(...classesBotaoDesativado);
 
-    // Habilita novamente após 4 segundos (4000 ms)
     setTimeout(function() {
         button.disabled = false;
-        button.textContent = "Criador de time"; // Restaura texto original
-        button.classList.add(...classeBttnAtivado)
-        button.classList.remove(...classeBttnDesativado)
+        button.textContent = "Criador de time";
+        button.classList.add(...classesBotaoAtivado);
+        button.classList.remove(...classesBotaoDesativado);
     }, 4000);
 });
 

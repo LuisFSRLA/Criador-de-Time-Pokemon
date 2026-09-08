@@ -1,21 +1,21 @@
 export {
-    escolherCorPorTipo,//utiliza
-    classep,//utiliza
-    VerificarRaridadeCard,//utiliza
-    classeBttn,//utiliza
-    VerificarCorDoTexto,//utiliza
-    VerificarPeso,//utiliza
-    classeEstaticas,//utiliza
-    quebraLinha,//utiliza
-    VerificarEstaticas,//utiliza
-    VerificarCorDoNome,
-    classeBttnAudio,
+    escolherCorPorTipo,
+    classesParagrafo,
+    verificarRaridadeCard,
+    classesBotao,
+    verificarCorDoTexto,
+    verificarPeso,
+    classesEstatisticas,
+    quebraLinha,
+    verificarEstaticas,
+    verificarCorDoNome,
+    classesBotaoAudio,
     dexHyphenados,
     audioPkmLevelUp,
     audioPkmPlink,
     pokemonsCapturados,
-    classeBttnAtivado,
-    classeBttnDesativado
+    classesBotaoAtivado,
+    classesBotaoDesativado
 }
 
 // DADOS ESTÁTICOS (dex de pokémons especiais)
@@ -53,26 +53,26 @@ const dexHyphenados = [
 
 // CLASSES CSS REUTILIZÁVEIS
 
-const classep = [
+const classesParagrafo = [
     "font-semibold", "text-center", "text-sm", "capitalize" 
 ];
 
-const classeEstaticas = [
+const classesEstatisticas = [
     "h-auto", "w-auto", "px-2", "py-1", "border-2", "rounded-lg", "mt-1", "bg-white", "text-center"
 ];
 
-const classeBttn = [
+const classesBotao = [
     "w-full", "text-white", "font-semibold", "py-2", "px-4","rounded-lg", "transition-colors", "text-center"
 ];
 
-const classeBttnAtivado = [
+const classesBotaoAtivado = [
     "bg-blue-600", "hover:bg-blue-700","hover:outline-blue-700", "active:bg-green-700", "active:outline-2", "active:outline-green-700"
 ]
-const classeBttnDesativado = [
+const classesBotaoDesativado = [
     "bg-red-600", "hover:bg-red-700", "hover:outline-2" ,"hover:outline-offset-2", "hover:outline-red-700"
 ]
 
-const classeBttnAudio = [
+const classesBotaoAudio = [
     "w-35", "text-white", "font-semibold", "py-2", "px-4","rounded-lg", "transition-colors", "text-center", "bg-amber-600", "hover:bg-amber-700", "text-sm", "hover:outline-3", "outline-offset-1", "outline-amber-800"
 ];
 
@@ -82,16 +82,14 @@ function escolherCorPorTipo(tipo) {
     return coresPorTipo[tipo] || "neutral-400";
 }
 
-async function VerificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
+async function verificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`);
         const pokemonSpecies = await response.json();
         
-        // Determina raridade baseado em dados da API
         const isLegendary = pokemonSpecies.is_legendary;
         const isMythical = pokemonSpecies.is_mythical;
         
-        // Determina cor baseado na raridade
         let classesCor = ["p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "max-w-90"];
         
         if (isMythical) {
@@ -113,12 +111,11 @@ async function VerificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
         elementoCard.classList.add(...classesCor);
     } catch (error) {
         console.error("Erro ao verificar raridade:", error);
-        // Fallback para branco se houver erro
         elementoCard.classList.add("p-3", "rounded-lg", "flex", "justify-center", "items-center", "flex-col", "gap-2", "bg-white", "max-w-90");
     }
 }
 
-function VerificarCorDoTexto(elementoTexto, pokemonId, ehShiny) {
+function verificarCorDoTexto(elementoTexto, pokemonId, ehShiny) {
     const response = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
         .then(response => response.json())
         .then(pokemonSpecies => {
@@ -135,12 +132,11 @@ function VerificarCorDoTexto(elementoTexto, pokemonId, ehShiny) {
         })
         .catch(error => {
             console.error("Erro ao verificar cor do texto:", error);
-            // Fallback para cor padrão se houver erro
             elementoTexto.classList.add("text-neutral-700");
         });
 }
 
-function VerificarCorDoNome(elementoNome, pokemonId, ehShiny) {
+function verificarCorDoNome(elementoNome, pokemonId, ehShiny) {
     const response = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
         .then(response => response.json())
         .then((pokemonSpecies) => {
@@ -148,17 +144,16 @@ function VerificarCorDoNome(elementoNome, pokemonId, ehShiny) {
             const isMythical = pokemonSpecies.is_mythical;
             const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId);
 
-        if (ehEspecial || ehShiny) {
-            elementoNome.classList.add("text-white/90");
-        }
-        else {
-            elementoNome.classList.add("text-mist-800");
-        }
+            if (ehEspecial || ehShiny) {
+                elementoNome.classList.add("text-white/90");
+            }
+            else {
+                elementoNome.classList.add("text-mist-800");
+            }
         })
 }
 
-// FUNÇÕES DE CONTEÚDO / TEXTO DO CARD
-function VerificarPeso(pesoEmKg, elementoPeso) {
+function verificarPeso(pesoEmKg, elementoPeso) {
     if (pesoEmKg >= 1000) {
         elementoPeso.textContent = `Peso: ${pesoEmKg / 1000}T`;
     }
@@ -167,39 +162,30 @@ function VerificarPeso(pesoEmKg, elementoPeso) {
     }
 }
 
-function quebraLinha(elemento,label, valor) {
+function quebraLinha(elemento, label, valor) {
     elemento.textContent = `${label}`;
     elemento.appendChild(document.createElement('br'));
     elemento.append(valor);
-    elemento.classList.add(...classep, ...classeEstaticas,"-pl-1");
+    elemento.classList.add(...classesParagrafo, ...classesEstatisticas, "-pl-1");
 }
 
-
-// FUNÇÕES DE ESTATÍSTICAS (cores por faixa de valor)
-
-function VerificarEstaticas(valorStat, elementoStat) {
+function verificarEstaticas(valorStat, elementoStat) {
     if (valorStat < 25) {
-        //vermelho
         elementoStat.classList.add("text-red-400", "border-red-400");
     }
     else if (valorStat < 50) {
-        //laranja
         elementoStat.classList.add("text-orange-400", "border-orange-400");
     }
     else if (valorStat < 75) {
-        //amarelo
         elementoStat.classList.add("text-yellow-400", "border-yellow-400");
     }
     else if (valorStat < 100) {
-        //verde
         elementoStat.classList.add("text-green-500", "border-green-500");
     }
     else if (valorStat < 125) {
-        //azul-claro
         elementoStat.classList.add("text-cyan-500", "border-cyan-500");
     }
     else {
-        //azul-escuro
         elementoStat.classList.add("text-blue-700", "border-blue-700");
     }
 }
