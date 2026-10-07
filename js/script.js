@@ -28,15 +28,9 @@ button.addEventListener("click", () => {
   const audioButtonAleatorio = Math.floor(Math.random() * 2) + 1;
   let temShiny = 0;
 
-  if (audioButtonAleatorio == 1) {
-    audioPkmLevelUp.play();
-  }
-  else {
-    audioPkmPlink.play();
-  }
   
   for (let i = 0; i < 6; i++) {
-    const idAleatorio = Math.floor(Math.random() * 1025) + 1;
+    const idAleatorio = 984//Math.floor(Math.random() * 1025) + 1;
 
       fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
       .then((response) => response.json())
@@ -109,7 +103,7 @@ button.addEventListener("click", () => {
         botaoShowdown.href = `https://dex.pokemonshowdown.com/pokemon/${pokemon.name}`;
 
         // PROBABILIDADE DE SHINY (1 em 4096, taxa clássica dos jogos)
-        const porcentagemShiny = Math.floor(Math.random() * 4096) + 1;
+        const porcentagemShiny = 1//Math.floor(Math.random() * 4096) + 1;
         if (porcentagemShiny == 1) {
           imagemPokemon = pokemon.sprites.other["home"].front_shiny || pokemon.sprites.front_shiny;
           shiny = 1;
@@ -247,7 +241,7 @@ button.addEventListener("click", () => {
         );
         
         container.appendChild(card);
-        eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container)
+        eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container, audioButtonAleatorio);
       })
       .catch((error) => {
         console.error("Erro ao carregar pokemon:", error);
@@ -266,7 +260,7 @@ button.addEventListener("click", () => {
 
     setTimeout(function() {
         button.disabled = false;
-        button.textContent = "Criador de time";
+        button.textContent = "Criar time novamente";
         button.classList.add(...classesBotaoAtivado);
         button.classList.remove(...classesBotaoDesativado);
     }, 4000);

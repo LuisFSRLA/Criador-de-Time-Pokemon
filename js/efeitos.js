@@ -1,21 +1,25 @@
 export {
     eventos,
 }
+import {
+  audioPkmLevelUp,
+  audioPkmPlink
+} from "./dicionarios.js";
 
 const audioOhmyGod = new Audio("audios/oh-my-god-meme.ogg");
 audioOhmyGod.volume = 0.2;
 const audioOhmyGodJojo = new Audio("audios/oh-my-god-jojo.ogg");
 audioOhmyGodJojo.volume = 0.2;
 const audioShinyPokemonAntigo = new Audio("audios/shiny-pokemon.ogg");
-audioShinyPokemonAntigo.volume = 0.2;
+audioShinyPokemonAntigo.volume = 0.3;
 const audioShinyPokemonNovo = new Audio("audios/shiny-pokemon-sound.ogg");
-audioShinyPokemonNovo.volume = 0.2;
+audioShinyPokemonNovo.volume = 1;
 let jaMostrouAlertaShiny = false;
 
-function eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container) {
+function eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container,audioButtonAleatorio) {
     const capturouGiratina = pokemonsCapturados.some((p) => p.id === 487);
     const tiposDosPokemons = pokemonsCapturados.map((p) => p.tipos).flat();
-
+    
     if (capturouGiratina && shiny === 1) {
         Swal.fire({
             title: 'Holy Moly',
@@ -57,6 +61,14 @@ function eventos(pokemonsCapturados, shiny, audioShinyAleatorio, container) {
         });
     }
 
+    else {
+        if (audioButtonAleatorio == 1) {
+          audioPkmLevelUp.play();
+        }
+        else if (audioButtonAleatorio == 2) {
+          audioPkmPlink.play();
+        }
+    }
     if (container.children.length > 6) {
         for (let i = 0; i < 6; i++) {
             container.removeChild(container.firstChild);

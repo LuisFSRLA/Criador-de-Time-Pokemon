@@ -7,12 +7,40 @@
     <link rel="icon" type="image/png" href="./img/pokebola.png"">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="min-h-screen bg-neutral-600 flex items-center justify-center">
+<body class="min-h-screen bg-neutral-500 flex  flex-col items-center justify-center">
     <main class="min-w-80 bg-neutral-200 p-6 rounded-xl shadow-xl mt-4 mb-4">
         <h1 class="text-lg font-bold text-neutral-800 mb-4 text-center">Criador de Time</h1>
         <button id="btn" class="w-full bg-blue-600 hover:bg-blue-700 hover:outline-2 hover:outline-offset-2 hover:outline-blue-700 active:bg-green-700 active:outline-2 active:outline-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">Criar Time</button>
         <div id="container" class="mt-4 grid grid-cols-3 gap-4"></div>
     </main>
+    <footer class="mt-4 w-120 rounded-xl bg-neutral-200/90 p-4 text-left text-white shadow-xl">
+        <h2 class="mb-4 text-center text-lg text-blue-600 font-bold">Cores dos fundos dos Pokémon</h2>
+        <section class="overflow-hidden rounded-lg bg-neutral-300 p-1">
+            <div class="overflow-x-auto rounded-md border border-neutral-400">
+                <table class="w-100 min-w-full border-separate border-spacing-0 text-xs text-neutral-600">
+                    <thead>
+                        <tr class="text-left text-neutral-200">
+                            <th class="bg-neutral-500 px-3 font-semibold">Carta</th>
+                            <th class="bg-neutral-500 px-3 font-semibold">Cor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="bg-neutral-100 px-3 py-2 font-semibold">Mítico</td><td class="bg-neutral-100 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-red-700"></span></td></tr>
+                        <tr><td class="bg-neutral-300 px-3 py-2 font-semibold">Mítico shiny</td><td class="bg-neutral-300 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-purple-800"></span></td></tr>
+                        <tr><td class="bg-neutral-100 px-3 py-2 font-semibold">Lendário</td><td class="bg-neutral-100 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-amber-400"></span></td></tr>
+                        <tr><td class="bg-neutral-300 px-3 py-2 font-semibold">Lendário shiny</td><td class="bg-neutral-300 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-green-600"></span></td></tr>
+                        <tr><td class="bg-neutral-100 px-3 py-2 font-semibold">Ultra Beast</td><td class="bg-neutral-100 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-purple-400"></span></td></tr>
+                        <tr><td class="bg-neutral-300 px-3 py-2 font-semibold">Ultra Beast shiny</td><td class="bg-neutral-300 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-indigo-700"></span></td></tr>
+                        <tr><td class="bg-neutral-100 px-3 py-2 font-semibold">Paradoxo comum</td><td class="bg-neutral-100 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-green-500"></span></td></tr>
+                        <tr><td class="bg-neutral-300 px-3 py-2 font-semibold">Paradoxo shiny</td><td class="bg-neutral-300 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-teal-600"></span></td></tr>
+                        <tr><td class="bg-neutral-100 px-3 py-2 font-semibold">Normal comum</td><td class="bg-neutral-100 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-white"></span></td></tr>
+                        <tr><td class="bg-neutral-300 px-3 py-2 font-semibold">Normal shiny</td><td class="bg-neutral-300 px-3 py-2"><span class="block h-9 w-full rounded border border-black/20 bg-blue-400"></span></td></tr>
+                    </tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </footer>
     <script type="module" src="js/dicionarios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="js/efeitos.js"></script>
