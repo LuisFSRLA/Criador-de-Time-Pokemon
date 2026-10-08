@@ -235,9 +235,9 @@ button.addEventListener("click", () => {
           descricao,
           chanceCaptura,
           containerEstaticas,
-          botaoPokedex,
-          botaoBulbapedia,
-          botaoShowdown
+          //botaoPokedex,
+          botaoBulbapedia
+          //botaoShowdown
         );
         
         container.appendChild(card);
