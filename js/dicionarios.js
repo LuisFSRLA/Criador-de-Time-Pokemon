@@ -44,12 +44,19 @@ const coresPorTipo = {
 const ultraBeasts = [
   793, 794, 795, 796, 797, 798, 799, 805, 806
 ];
-const dexHyphenados = [122, 439, 866, 772, 83, 865, 250, 474, 782, 783, 784, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1021, 1020, 1022, 1023];
+const dexHyphenados = [
+    122, 439, 866, 772, 83, 865, 250, 474, 782, 783, 784, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1021, 1020, 1022, 1023
+];
 
-const paradoxos= [984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 1021, 1022, 1023];
-        const audioPkmLevelUp = new Audio("audios/pkmlevelup.ogg");
-        const audioPkmPlink = new Audio("audios/pkmplink.ogg");
-        let pokemonsCapturados = [];
+const paradoxos= [
+    984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 1021, 1022, 1023
+];
+const powerHouse = [
+    147, 148, 149, 246, 247, 248, 371, 372, 373, 374, 375, 376, 443, 444, 445, 633, 634, 635, 704, 705, 706, 704, 705, 706, 782, 783, 784, 885, 886, 887, 996, 997, 998
+];
+    const audioPkmLevelUp = new Audio("audios/pkmlevelup.ogg");
+    const audioPkmPlink = new Audio("audios/pkmplink.ogg");
+    let pokemonsCapturados = [];
 
 // CLASSES CSS REUTILIZÁVEIS
 
@@ -104,6 +111,9 @@ async function verificarRaridadeCard(elementoCard, pokemonId, ehShiny) {
         else if (paradoxos.includes(pokemonId)) {
             classesCor.push(ehShiny ? "bg-teal-600" : "bg-green-500");
         }
+        else if (powerHouse.includes(pokemonId)) {
+            classesCor.push(ehShiny ? "bg-fuchsia-600" : "bg-violet-600");
+        }
         else if (ehShiny) {
             classesCor.push("bg-blue-400");
         }
@@ -124,13 +134,13 @@ function verificarCorDoTexto(elementoTexto, pokemonId, ehShiny) {
         .then(pokemonSpecies => {
             const isLegendary = pokemonSpecies.is_legendary;
             const isMythical = pokemonSpecies.is_mythical;
-            const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId);
+            const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId) || paradoxos.includes(pokemonId) || powerHouse.includes(pokemonId);
     
             if (ehEspecial || ehShiny) {
-                elementoTexto.classList.add("text-neutral-200/80");
+                elementoTexto.classList.add("text-white");
             }
             else {
-                elementoTexto.classList.add("text-neutral-700");
+                elementoTexto.classList.add("text-neutral-600");
             }
         })
         .catch(error => {
@@ -145,7 +155,7 @@ function verificarCorDoNome(elementoNome, pokemonId, ehShiny) {
         .then((pokemonSpecies) => {
             const isLegendary = pokemonSpecies.is_legendary;
             const isMythical = pokemonSpecies.is_mythical;
-            const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId);
+            const ehEspecial = isMythical || isLegendary || ultraBeasts.includes(pokemonId) || paradoxos.includes(pokemonId) || powerHouse.includes(pokemonId);
 
             if (ehEspecial || ehShiny) {
                 elementoNome.classList.add("text-white/90");

@@ -30,7 +30,7 @@ button.addEventListener("click", () => {
 
   
   for (let i = 0; i < 6; i++) {
-    const idAleatorio = 984//Math.floor(Math.random() * 1025) + 1;
+    const idAleatorio = Math.floor(Math.random() * 1025) + 1;
 
       fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
       .then((response) => response.json())
@@ -103,7 +103,7 @@ button.addEventListener("click", () => {
         botaoShowdown.href = `https://dex.pokemonshowdown.com/pokemon/${pokemon.name}`;
 
         // PROBABILIDADE DE SHINY (1 em 4096, taxa clássica dos jogos)
-        const porcentagemShiny = 1//Math.floor(Math.random() * 4096) + 1;
+        const porcentagemShiny = Math.floor(Math.random() * 4096) + 1;
         if (porcentagemShiny == 1) {
           imagemPokemon = pokemon.sprites.other["home"].front_shiny || pokemon.sprites.front_shiny;
           shiny = 1;
